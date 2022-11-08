@@ -59,7 +59,7 @@ const Main = ({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) => {
       <section className="places">
         <ul className="list places__list">
           {cards.map((card) => (
-            <Card card={card} onCardClick={onCardClick} />
+            <Card card={card} onCardClick={onCardClick} key={card._id} />
           ))}
         </ul>
       </section>
