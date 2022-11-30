@@ -80,7 +80,7 @@ const App = () => {
   const handleAddPlaceSubmit = ({ name, link }) => {
     Api.addCard(name, link)
       .then((newCard) => {
-        setCards([...cards, newCard]);
+        setCards([newCard, ...cards]);
         closeAllPopups();
       })
       .catch((err) => {
@@ -100,8 +100,7 @@ const App = () => {
 
     Api.changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
-        const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
-        setCards(newCards);
+        setCards(prevCards=> prevCards.map((c) => (c._id === card._id ? newCard : c)))
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
@@ -111,8 +110,7 @@ const App = () => {
   const handleCardDelete = (card) => {
     Api.deleteCard(card._id)
       .then(() => {
-        const newCards = cards.filter((c) => c._id !== card._id);
-        setCards(newCards);
+        setCards(prevCards=> prevCards.filter((c) => c._id !== card._id))
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
